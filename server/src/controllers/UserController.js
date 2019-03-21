@@ -61,7 +61,7 @@ module.exports = {
 
   async show(req, res) {
     try {
-      const user = await User.findById(req.params.userId)
+      const user = await User.findByPk(req.params.userId)
       res.send(user)
     } catch (err) {
       res.status(500).send({
