@@ -8,6 +8,7 @@
         <p>Firstname - LastName: {{user.name}} - {{user.lastname}}</p>
         <p>Email: {{user.email}}</p>
         <p>Password: {{user.password}}</p>
+        <p><button @click="navigateTo('/user/'+user.id)">View User</button></p>
       </div>
     </div>
   </div>
@@ -22,6 +23,11 @@ export default {
   },
   async created() {
     this.users = (await UsersService.index()).data
+  },
+  methods: {
+    navigateTo (route) {
+      this.$router.push(route)
+    }
   },
 }
 </script>
