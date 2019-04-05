@@ -24,10 +24,7 @@ module.exports = {
 
   async login(req, res) {
     try {
-      const {
-        email,
-        password
-      } = req.body
+      const {email, password} = req.body
       const user = await User.findOne({
         where: {
           email: email
@@ -41,6 +38,7 @@ module.exports = {
       }
 
       const isPasswordValid = await user.comparePassword(password)
+
       if (!isPasswordValid) {
         return res.status(403).send({
           error: 'User/Password not correct'
@@ -48,7 +46,6 @@ module.exports = {
       }
 
       const userJSON = user.toJSON()
-
       res.send({
         user: userJSON,
         token: jwtSignUser(userJSON)
