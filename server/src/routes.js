@@ -1,8 +1,10 @@
 const UserController = require('./controllers/UserController')
 const UserAuthenController = require('./controllers/UserAuthenController')
+const isAuthenController = require('./authen/isAuthenController')
 
 module.exports = (app) => {
   app.get('/users',
+    isAuthenController,
     UserController.index
   )
 

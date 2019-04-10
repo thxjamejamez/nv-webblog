@@ -5,9 +5,16 @@
       <p>Username: <input type="text" v-model="email"></p>
       <p>Password: <input type="text" v-model="password"></p>
       <p><button type="submit">Login</button></p>
+      <div class="error" v-if="error">{{error}}</div>
     </form>
   </div>
 </template>
+
+<style scoped>
+  .error {
+    color: red;
+  }
+</style>
 
 <script>
 import AuthenService from '@/services/AuthenService'
@@ -15,7 +22,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: null
     }
   },
   methods: {
@@ -28,10 +36,24 @@ export default {
 
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
-        console.log(response);
+
+        this.$router.push({
+          name: 'users'
+        })
       } catch (error) {
-        console.log(error);
+        console.log(error)
+        this.error = error.response.data.error
+        this.email = ''
+        this.password = ''
       }
+    },
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+
+      this.$router.push({
+        name: 'login'
+      })
     }
   }
 }
