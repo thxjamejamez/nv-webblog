@@ -57,12 +57,12 @@ export default new Router({
       component: BlogCreate
     },
     {
-      path: '/blog/edit/:userId',
+      path: '/blog/edit/:blogId',
       name: 'blog-edit',
       component: BlogEdit
     },
     {
-      path: '/blog/:userId',
+      path: '/blog/:blogId',
       name: 'blog',
       component: BlogShow
     },
